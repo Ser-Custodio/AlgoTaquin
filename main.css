@@ -1,0 +1,81 @@
+body{
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    vertical-align: center;
+}
+
+.taquin{
+    width: 70%;
+    margin-left: 30%;
+    align-items: center;
+    text-align: center;
+    /*justify-content: center;*/
+    /*align-content: center;*/
+    vertical-align: center;
+}
+
+.caseChiffre {
+    font-size: 2.5em;
+    /*border: 1px double black;*/
+    border: 3px outset black;
+    border-radius: 20px ;
+    height: 100px;
+    background-color: burlywood;
+    vertical-align: center;
+    padding-top: 20px;
+}
+
+.row{
+    display: flex;
+    flex-wrap: wrap;
+    width: 400px;
+    align-content: center;
+    vertical-align: center;
+    align-items: center;
+    text-align: center;
+}
+
+.vide{
+    background-color: red;
+}
+
+#solubleOrNot{
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+.caseImage{
+    border: 1px solid black;
+}
+
+.resultatImage img{
+    width: 200px;
+}
+
+.resultatImage{
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.titreSolution{
+    display: none;
+}
+
+.solution{
+    font-size: 1.2em;
+    display: none;
+}
+
+.winner{
+    display: none;
+    width: 100%;
+    background-color: chartreuse;
+    font-size: 2em;
+    font-weight: bolder;
+    z-index: 100;
+    position: fixed;
+    top: 50%;
+
+}
