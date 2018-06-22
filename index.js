@@ -85,13 +85,33 @@ $(document).ready(function () {
         $('.winner').hide();
         //Afficher le plateau de jeu
         deleteTable();
-        //-------------------- ANCIENNE VERSION ----------------------
         //Générer un tableau de valeurs aléatoires
-        // tableauAlea = generateTableValue();
+        tableauAlea = generateTableValue();
         //Créer le plateau de jeu grâce au tableau de valeurs aléatoires
-        // board = createBoard(tableauAlea, board);
+        board = createBoard(tableauAlea, board);
 
-        // -------------------- NOUVELLE VERSION -----------------
+        // -------------------- PARTIE COMMUNE -----------------
+        //Sauvegarder le board dans son état initial
+        boardInitial = $.extend(true, [], board);
+        //Afficher le plateau de jeu vide
+        typeCase = "caseChiffre";
+        generateCadre(board, typeCase);
+        //Mettre les valeurs dans le plateau de jeu
+        updateValues(board, typeCase);
+        //Définir si le plateau de jeu généré (sous forme de tableau simple) est soluble ou pas : renvoi true of false
+        tableauAlea = creerSimpleTableau(tableauJeu); //A AJOUTER QUE POUR LA NOUVELLE VERSION
+        soluble = solubleOrNot(tableauAlea);
+        //Afficher un message si c'est soluble or not
+        narguer(soluble);
+    });
+
+    $(".newgameChiffresCalc").click(function () {
+        $('.titreSolution').hide();
+        $('.solution').hide();
+        $('.winner').hide();
+        //Afficher le plateau de jeu
+        deleteTable();
+
         //Générer un tableau de mouvements obligatoires
         let tabMouv = tableauDeMouvements(nbMouv);
         console.log("Tableau de mouvements obligatoires : " + tabMouv);
@@ -113,28 +133,49 @@ $(document).ready(function () {
         soluble = solubleOrNot(tableauAlea);
         //Afficher un message si c'est soluble or not
         narguer(soluble);
-    })
+    });
 
     $(".newgameImage").click(function () {
         $('.titreSolution').hide();
         $('.solution').hide();
         $('.winner').hide();
+        $('.resolution').hide();
         //Afficher le plateau de jeu
         deleteTable();
-        //-------------------- ANCIENNE VERSION ----------------------
-        // //Générer un tableau de valeurs aléatoires
-        // tableauAlea = generateTableValue();
-        // //Créer le plateau de jeu grâce au tableau de valeurs aléatoires
-        // board = createBoard(tableauAlea, board);
+        //Générer un tableau de valeurs aléatoires
+        tableauAlea = generateTableValue();
+        //Créer le plateau de jeu grâce au tableau de valeurs aléatoires
+        board = createBoard(tableauAlea, board);
 
-        //-------------------- NOUVELLE VERSION ----------------------
+        //-------------------- PARTIE COMMUNE ----------------------
+        //Sauvegarder le board dans son état initial
+        boardInitial = $.extend(true, [], board);
+        //Afficher le plateau de jeu vide
+        typeCase = "";
+        generateCadre(board, typeCase);
+        //Mettre les valeurs dans le plateau de jeu
+        updateValues(board, typeCase);
+        //Définir si le plateau de jeu généré (sous forme de tableau simple) est soluble ou pas : renvoi true of false
+        tableauAlea = creerSimpleTableau(tableauJeu); //A AJOUTER QUE POUR LA NOUVELLE VERSION
+        soluble = solubleOrNot(tableauAlea);
+        narguer(soluble);
+    });
+
+    $(".newgameImageCalc").click(function () {
+        $('.titreSolution').hide();
+        $('.solution').hide();
+        $('.winner').hide();
+
+        //Afficher le plateau de jeu
+        deleteTable();
         //Générer un tableau de mouvements obligatoires
         let tabMouv = tableauDeMouvements(nbMouv);
-        console.log("Tableau de mouvements obligatoires + " + tabMouv);
+        console.log("Tableau de mouvements obligatoires : " + tabMouv);
         //Créer un tableau de jeu 2 dimensions avec les mouvements aléatoires
         tableauJeu = creerTableauJeu(tabMouv, tableauGagnant);
         //Créer sous forme d'un tableau d'objets le plateau de jeu
         board = creerTableauObjets(tableauJeu, board);
+
 
         //-------------------- PARTIE COMMUNE ----------------------
         //Sauvegarder le board dans son état initial
@@ -158,13 +199,14 @@ $(document).ready(function () {
         if (isAWinner(resultatJoueur) == true){
             // setTimeout(function()
             // {
-                $('.winner').show();
-                // alert("Partie gagnée !!!!");
+            $('.winner').show();
+            // alert("Partie gagnée !!!!");
             // }, 500);
         }
     })
 
     $(".initialiser").click(function () {
+        $('.winner').hide();
         //Board reprend la valeur du boardInitial
         board = $.extend(true, [], boardInitial);
         //Afficher les valeurs et bouger les cases
@@ -247,7 +289,7 @@ function deleteTable() {
 function makeTableResult(tab) {
     let resultat = [];
     for (let j = 0; j < tab.length; j++) {
-            resultat.push(tab[j].value);
+        resultat.push(tab[j].value);
     }
     return resultat;
 }
@@ -625,19 +667,19 @@ function searchDFS(jeu, depth, connus, moves){
 
 //Génerer un tableau de mouvements aléatoires
 function tableauDeMouvements(nbMouv){
-   let tab = ["U", "D", "L", "R"];
-   let resultat = [];
-   while(resultat.length < nbMouv) {
-       //Générer un nombre aléatoire correspondant à un index du tableau
-       let min = Math.ceil(0);
-       let max = Math.floor((tab.length - 1));
-       let alea = Math.floor(Math.random() * (max - min +1)) + min;
-       //Récupérer la valeur dont l'index a été tiré au sort
-       let value = tab[alea];
-       //Ajouter la valeur (dont l'index a été sélectionné) dans le tableau de résultat final
-       resultat.push(value);
-   }
-   return resultat;
+    let tab = ["U", "D", "L", "R"];
+    let resultat = [];
+    while(resultat.length < nbMouv) {
+        //Générer un nombre aléatoire correspondant à un index du tableau
+        let min = Math.ceil(0);
+        let max = Math.floor((tab.length - 1));
+        let alea = Math.floor(Math.random() * (max - min +1)) + min;
+        //Récupérer la valeur dont l'index a été tiré au sort
+        let value = tab[alea];
+        //Ajouter la valeur (dont l'index a été sélectionné) dans le tableau de résultat final
+        resultat.push(value);
+    }
+    return resultat;
 }
 
 //A partir d'un tableau de mouvements aléatoire et du tableau gagnant, générer un tableau mélangé
