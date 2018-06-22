@@ -38,25 +38,6 @@ let boardInitial = [
     {x: 3, y: 3, value: 15, id: 16}
 ];
 
-//Plateau de jeu gagnant
-let boardGagnant = [
-    {x: 0, y: 0, value: 1, id: 1},
-    {x: 0, y: 1, value: 2, id: 2},
-    {x: 0, y: 2, value: 3, id: 3},
-    {x: 0, y: 3, value: 4, id: 4},
-    {x: 1, y: 0, value: 5, id: 5},
-    {x: 1, y: 1, value: 6, id: 6},
-    {x: 1, y: 2, value: 7, id: 7},
-    {x: 1, y: 3, value: 8, id: 8},
-    {x: 2, y: 0, value: 9, id: 9},
-    {x: 2, y: 1, value: 10, id: 10},
-    {x: 2, y: 2, value: 11, id: 11},
-    {x: 2, y: 3, value: 12, id: 12},
-    {x: 3, y: 0, value: 13, id: 13},
-    {x: 3, y: 1, value: 14, id: 14},
-    {x: 3, y: 2, value: 15, id: 15},
-    {x: 3, y: 3, value: "V", id: 16}
-];
 //Type de case : chiffre ou image
 let typeCase;
 let tableauGagnant = [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,"V"]];
@@ -64,25 +45,18 @@ let tableauGagnant = [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,"V"]];
 let tableauJeu = [];
 //Déterminer le nombre de mouvements
 let nbMouv = 23;
-
 //Profondeur maximum (nb de permutations)
 let max_depth = 0;
-//Tableau contenant les déplacements à effectuer
-// let moves = [];
-//Tableau contenant la meilleure solution pour résoudre le taquin
-let best_moves = [];
-//Nb minimum de mouvements
-let best_depth = max_depth;
-
 
 
 $(document).ready(function () {
-
+    $('.resolution').hide();
     //Lorsque l'on click sur le bouton newgame générer une nouvelle partie
     $(".newgameChiffres").click(function () {
         $('.titreSolution').hide();
         $('.solution').hide();
         $('.winner').hide();
+        $('.resolution').hide();
         //Afficher le plateau de jeu
         deleteTable();
         //Générer un tableau de valeurs aléatoires
@@ -109,6 +83,7 @@ $(document).ready(function () {
         $('.titreSolution').hide();
         $('.solution').hide();
         $('.winner').hide();
+        $('.resolution').show();
         //Afficher le plateau de jeu
         deleteTable();
 
@@ -165,7 +140,7 @@ $(document).ready(function () {
         $('.titreSolution').hide();
         $('.solution').hide();
         $('.winner').hide();
-
+        $('.resolution').show();
         //Afficher le plateau de jeu
         deleteTable();
         //Générer un tableau de mouvements obligatoires
